@@ -34,8 +34,13 @@ jobs:
       - name: Preparar Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Generar gradlew (por si no estaba en el repo)
-        run: gradle wrapper --gradle-version 8.7 --no-daemon
+      - name: Generar gradlew (en una carpeta aparte, para no chocar con Fabric Loom)
+        run: |
+          mkdir -p /tmp/generador_wrapper
+          cd /tmp/generador_wrapper
+          gradle wrapper --gradle-version 8.7 --no-daemon
+          cp -r gradle "$GITHUB_WORKSPACE"/
+          cp gradlew gradlew.bat "$GITHUB_WORKSPACE"/
 
       - name: Dar permiso de ejecucion a gradlew
         run: chmod +x gradlew

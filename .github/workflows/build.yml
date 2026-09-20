@@ -38,6 +38,7 @@ jobs:
         run: |
           mkdir -p /tmp/generador_wrapper
           cd /tmp/generador_wrapper
+          touch settings.gradle
           gradle wrapper --gradle-version 8.7 --no-daemon
           cp -r gradle "$GITHUB_WORKSPACE"/
           cp gradlew gradlew.bat "$GITHUB_WORKSPACE"/

@@ -1,5 +1,16 @@
 # Este archivo hace que GitHub compile el mod por ti, gratis, en sus servidores.
 # No necesitas instalar Java ni nada en tu computadora.
+#
+# Como usarlo:
+#   1. Crea una cuenta en github.com
+#   2. Crea un repositorio nuevo (puede ser privado)
+#   3. Sube TODOS los archivos de esta carpeta al repositorio
+#      (si GitHub te ofrecio agregar su propio workflow de Gradle, no lo
+#      aceptes / borralo: solo debe existir ESTE archivo en .github/workflows)
+#   4. Entra a la pestana "Actions" del repositorio
+#   5. Espera ~3 minutos a que termine (palomita verde)
+#   6. Haz clic en la ejecucion y baja hasta "Artifacts"
+#   7. Descarga "chatbubbles-jar" -> adentro viene tu .jar
 
 name: Compilar el mod
 
@@ -23,7 +34,10 @@ jobs:
       - name: Preparar Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Dar permisos a gradlew
+      - name: Generar gradlew (por si no estaba en el repo)
+        run: gradle wrapper --gradle-version 8.7 --no-daemon
+
+      - name: Dar permiso de ejecucion a gradlew
         run: chmod +x gradlew
 
       - name: Compilar
